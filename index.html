@@ -7,7 +7,7 @@
     <title>{{ user.username }} - Sub Info</title>
     <style>
         .asli {
-            background: url('https://4kwallpapers.com/images/wallpapers/windows-server-2025-3840x2400-15386.jpg') no-repeat center;
+            background: url('https://4kwallpapers.com/images/wallpapers/oneplus-8-pro-stock-4200x2160-436.jpg') no-repeat center;
             background-size: cover;
         }
     </style>
@@ -3998,11 +3998,21 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                             <div class="dark:text-white text-black mt-3 text-sm text-center"
                                 x-text="resetInterval == 'year' ? $t('resetIntervalYear') : resetInterval == 'month' ? $t('resetIntervalMonth') : resetInterval == 'week' ? $t('resetIntervalWeek') : resetInterval == 'day' ? $t('resetIntervalDay') : ''">
                             </div>
-                            <div class="dark:text-white text-black mt-5 text-center"><span class="font-bold"
-                                    x-text="$t('remainingDays')"></span><span>{% if not user.expire %}∞{% else %}{% set
-                                    remaining_days = ((user.expire - now().timestamp()) // (24 * 3600)) %}({{
-                                    remaining_days | int if (remaining_days | int) > -1 else 0 }}){% endif
-                                    %}</span><span x-text="$t('remainingDaysSufix')"></span></div>
+                            <div class="dark:text-white text-black mt-5 text-center">
+                                <span class="font-bold" x-text="$t('remainingDays')"></span>
+                                <span>
+                                    {% if not user.expire %}
+                                        ∞
+                                    {% else %}
+                                        {% set now_datetime = now() %}
+                                        {% set remaining_days = ((user.expire - now_datetime).total_seconds() // (24 * 3600)) %}
+                                        ({{ remaining_days | int if (remaining_days | int) > -1 else 0 }})
+                                    {% endif %}
+                                </span>
+                                <span x-text="$t('remainingDaysSufix')"></span>
+                            </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
